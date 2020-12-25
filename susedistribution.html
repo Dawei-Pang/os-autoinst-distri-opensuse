@@ -114,7 +114,7 @@
 
 <h2 id="activate_console">activate_console</h2>
 
-<pre><code>  activate_console($console [, [ensure_tty_selected =&gt; 0|1, ] [skip_set_standard_prompt =&gt; 0|1, ] [skip_setterm =&gt; 0|1, ]])</code></pre>
+<pre><code>  activate_console($console [, [ensure_tty_selected =&gt; 0|1] [, skip_set_standard_prompt =&gt; 0|1] [, skip_setterm =&gt; 0|1] [, timeout =&gt; $timeout]])</code></pre>
 
 <p>Callback whenever a console is selected for the first time. Accepts arguments provided to select_console().</p>
 
@@ -122,15 +122,19 @@
 
 <p>Option <code>ensure_tty_selected</code> ensures TTY is selected.</p>
 
+<p><code>timeout</code> is set on the internal <code>assert_screen</code> call and can be set to configure a timeout value different than default.</p>
+
 <h2 id="console_selected">console_selected</h2>
 
-<pre><code>    console_selected($console [, await_console =&gt; $await_console] [, tags =&gt; $tags ] [, ignore =&gt; $ignore ]);</code></pre>
+<pre><code>    console_selected($console [, await_console =&gt; $await_console] [, tags =&gt; $tags ] [, ignore =&gt; $ignore ] [, timeout =&gt; $timeout ]);</code></pre>
 
 <p>Overrides <code>select_console</code> callback from <code>testapi</code>. Waits for console by calling assert_screen on <code>tags</code>, by default the name of the selected console.</p>
 
 <p><code>await_console</code> is set to 1 by default. Can be set to 0 to skip the check for the console. Call for example <code>select_console(&#39;root-console&#39;, await_console =</code> 0)&gt; if there should be no checking for the console to be shown. Useful when the check should or must be test module specific.</p>
 
 <p><code>ignore</code> can be overridden to not check on certain consoles. By default the known uncheckable consoles are already ignored.</p>
+
+<p><code>timeout</code> is set on the internal <code>assert_screen</code> call and can be set to configure a timeout value different than default.</p>
 
 
 </body>

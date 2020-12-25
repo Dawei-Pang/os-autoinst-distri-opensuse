@@ -26,6 +26,7 @@
       <li><a href="#expand_variables">expand_variables</a></li>
       <li><a href="#upload_profile">upload_profile</a></li>
       <li><a href="#inject_registration">inject_registration</a></li>
+      <li><a href="#test_ayp_url">test_ayp_url</a></li>
     </ul>
   </li>
 </ul><h1>lib/autoyast.pm</h1>
@@ -90,7 +91,7 @@
 
  Try to detect profile directory (autoyast_opensuse/, autoyast_sle{12,15}/, autoyast_sles11/)
  and returns its path.
- TODO: autoyast_{caasp,kvm,qam,xen}
+ TODO: autoyast_{kvm,qam,xen}
 
  $profile is the autoyast profile &#39;autoinst.xml&#39;.
  $path is AutoYaST profile path</code></pre>
@@ -136,6 +137,12 @@
 <pre><code> inject_registration($profile);
 
  $profile is the autoyast profile &#39;autoinst.xml&#39;.</code></pre>
+
+<h2 id="test_ayp_url">test_ayp_url</h2>
+
+<pre><code> test_ayp_url();
+
+ Test if the autoyast profile url is reachable, before the autoyast installation begins.</code></pre>
 
 
 </body>

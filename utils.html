@@ -44,7 +44,7 @@
       <li><a href="#assert_and_click_until_screen_change">assert_and_click_until_screen_change</a></li>
       <li><a href="#handle_livecd_reboot_failure">handle_livecd_reboot_failure</a></li>
       <li><a href="#assert_screen_with_soft_timeout">assert_screen_with_soft_timeout</a></li>
-      <li><a href="#pkcon_quit">pkcon_quit</a></li>
+      <li><a href="#quit_packagekit">quit_packagekit</a></li>
       <li><a href="#addon_decline_license">addon_decline_license</a></li>
       <li><a href="#addon_license">addon_license</a></li>
       <li><a href="#addon_products_is_applicable">addon_products_is_applicable</a></li>
@@ -53,7 +53,6 @@
       <li><a href="#random_string">random_string</a></li>
       <li><a href="#handle_emergency">handle_emergency</a></li>
       <li><a href="#service_action">service_action</a></li>
-      <li><a href="#run_scripted_command_slow">run_scripted_command_slow</a></li>
       <li><a href="#get_root_console_tty">get_root_console_tty</a></li>
       <li><a href="#get_x11_console_tty">get_x11_console_tty</a></li>
       <li><a href="#arrays_differ">arrays_differ</a></li>
@@ -65,13 +64,16 @@
       <li><a href="#handle_login_not_found">_handle_login_not_found</a></li>
       <li><a href="#reconnect_mgmt_console">reconnect_mgmt_console</a></li>
       <li><a href="#show_tasks_in_blocked_state">show_tasks_in_blocked_state</a></li>
+      <li><a href="#show_oom_info">show_oom_info</a></li>
       <li><a href="#svirt_host_basedir">svirt_host_basedir</a></li>
-      <li><a href="#prepare_ssh_localhost_key_login">prepare_ssh_localhost_key_login</a></li>
       <li><a href="#script_retry">script_retry</a></li>
+      <li><a href="#script_output_retry">script_output_retry</a></li>
       <li><a href="#script_run_interactive">script_run_interactive</a></li>
       <li><a href="#create_btrfs_subvolume">create_btrfs_subvolume</a></li>
       <li><a href="#file_content_replace">file_content_replace</a></li>
       <li><a href="#assert_file_content-assert_file_content-path-value">assert_file_content assert_file_content( &quot;path&quot;, value );</a></li>
+      <li><a href="#ensure_ca_certificates_suse_installed-ensure_ca_certificates_suse_installed">ensure_ca_certificates_suse_installed ensure_ca_certificates_suse_installed();</a></li>
+      <li><a href="#install_patterns-install_patterns">install_patterns install_patterns();</a></li>
     </ul>
   </li>
 </ul><h1>lib/utils.pm</h1>
@@ -318,9 +320,9 @@
 
 <pre><code> assert_screen_with_soft_timeout(&#39;registration-found&#39;, timeout =&gt; 300, soft_timeout =&gt; 60, bugref =&gt; &#39;bsc#123456&#39;);</code></pre>
 
-<h2 id="pkcon_quit">pkcon_quit</h2>
+<h2 id="quit_packagekit">quit_packagekit</h2>
 
-<pre><code> pkcon_quit();</code></pre>
+<pre><code> quit_packagekit();</code></pre>
 
 <p>Stop and mask packagekit service and wait until it is really dead. This is needed to prevent access conflicts to the RPM database.</p>
 
@@ -375,12 +377,6 @@
 <p>Example:</p>
 
 <pre><code> service_action(&#39;dbus&#39;, {type =&gt; [&#39;socket&#39;, &#39;service&#39;], action =&gt; [&#39;unmask&#39;, &#39;start&#39;]});</code></pre>
-
-<h2 id="run_scripted_command_slow">run_scripted_command_slow</h2>
-
-<pre><code> run_scripted_command_slow($cmd [, slow_type =&gt; &lt;num&gt;]);</code></pre>
-
-<p>Type slowly to run very long command in scripted way to avoid issue of &#39;key event queue full&#39; (see poo#12250). Pass optional slow_type key to control how slow to type the command. Scripted very long command to shorten typing length. Default slow_type is type_string_slow.</p>
 
 <h2 id="get_root_console_tty">get_root_console_tty</h2>
 
@@ -448,7 +444,7 @@
 
 <pre><code> reconnect_mgmt_console([timeout =&gt; $timeout]);</code></pre>
 
-<p>After each reboot we have to reconnect to the management console on remote backends</p>
+<p>After each reboot we have to reconnect to the management console on remote backends. <code>$timeout</code> can be set to some specific time and if during reboot GRUB is shown twice <code>grub_expected_twice</code> can be set to 1.</p>
 
 <h2 id="show_tasks_in_blocked_state">show_tasks_in_blocked_state</h2>
 
@@ -458,17 +454,17 @@
 
 <p>See <a href="https://github.com/torvalds/linux/blob/master/Documentation/admin-guide/sysrq.rst">https://github.com/torvalds/linux/blob/master/Documentation/admin-guide/sysrq.rst</a>.</p>
 
+<h2 id="show_oom_info">show_oom_info</h2>
+
+<pre><code> show_oom_info</code></pre>
+
+<p>Show logs about an out of memory process kill.</p>
+
 <h2 id="svirt_host_basedir">svirt_host_basedir</h2>
 
 <pre><code> svirt_host_basedir();</code></pre>
 
 <p>Return <code>VIRSH_OPENQA_BASEDIR</code> or fall back to <code>/var/lib</code>.</p>
-
-<h2 id="prepare_ssh_localhost_key_login">prepare_ssh_localhost_key_login</h2>
-
-<pre><code> prepare_ssh_localhost_key_login($source_user);</code></pre>
-
-<p>Add the SSH key of <code>$source_user</code> to the <code>.ssh/authorized_keys</code> file of root.</p>
 
 <h2 id="script_retry">script_retry</h2>
 
@@ -489,6 +485,26 @@
 <p>Example:</p>
 
 <pre><code> script_retry(&#39;ping -c1 -W1 machine&#39;, retry =&gt; 5);</code></pre>
+
+<h2 id="script_output_retry">script_output_retry</h2>
+
+<pre><code> script_output_retry($cmd, [retry =&gt; $retry], [delay =&gt; $delay], [timeout =&gt; $timeout], [die =&gt; $die]);</code></pre>
+
+<p>Repeat command until expected result or timeout. Return the output of the command on success.</p>
+
+<p><code>$expect</code> refers to the expected command exit code and defaults to <code>0</code>.</p>
+
+<p><code>$retry</code> refers to the number of retries and defaults to <code>10</code>.</p>
+
+<p><code>$delay</code> is the time between retries and defaults to <code>30</code>.</p>
+
+<p>The command must return within <code>$timeout</code> seconds (default: 25).</p>
+
+<p>If the command doesn&#39;t return <code>$expect</code> after <code>$retry</code> retries, this function will die, if <code>$die</code> is set.</p>
+
+<p>Example:</p>
+
+<pre><code> script_output_retry(&#39;ping -c1 -W1 machine&#39;, retry =&gt; 5);</code></pre>
 
 <h2 id="script_run_interactive">script_run_interactive</h2>
 
@@ -531,6 +547,14 @@
 <h2 id="assert_file_content-assert_file_content-path-value">assert_file_content assert_file_content( &quot;path&quot;, value );</h2>
 
 <p>It could check a file be point to &#39;path&#39; whether include &#39;value&#39;.</p>
+
+<h2 id="ensure_ca_certificates_suse_installed-ensure_ca_certificates_suse_installed">ensure_ca_certificates_suse_installed ensure_ca_certificates_suse_installed();</h2>
+
+<p>This functions checks if ca-certificates-suse is installed and if it is not it adds the repository and installs it.</p>
+
+<h2 id="install_patterns-install_patterns">install_patterns install_patterns();</h2>
+
+<p>This functions install extra patterns if var PATTERNS is set.</p>
 
 
 </body>

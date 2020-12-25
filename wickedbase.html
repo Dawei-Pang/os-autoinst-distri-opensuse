@@ -31,6 +31,7 @@
       <li><a href="#upload_wicked_logs">upload_wicked_logs</a></li>
       <li><a href="#do_barrier">do_barrier</a></li>
       <li><a href="#setup_vlan">setup_vlan</a></li>
+      <li><a href="#sync_start_of">sync_start_of</a></li>
     </ul>
   </li>
 </ul><h1>lib/wickedbase.pm</h1>
@@ -145,6 +146,12 @@
 <pre><code>    setup_vlan($ip_type)</code></pre>
 
 <p>Creating VLAN using only ip commands. Getting ip alias name for wickedbase::get_ip function</p>
+
+<h2 id="sync_start_of">sync_start_of</h2>
+
+<pre><code>  sync_start_of($service, $mutex, [,$timeout])</code></pre>
+
+<p>Start <code>$service</code> within defined $timeout ( default is 60). After succesfully service start will create mutex with <code>$mutex</code> which can be used by parallel test to catch this event</p>
 
 
 </body>

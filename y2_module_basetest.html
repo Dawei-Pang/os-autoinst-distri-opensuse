@@ -18,7 +18,6 @@
       <li><a href="#is_network_manager_default">is_network_manager_default</a></li>
       <li><a href="#continue_info_network_manager_default">continue_info_network_manager_default</a></li>
       <li><a href="#accept_warning_network_manager_default">accept_warning_network_manager_default</a></li>
-      <li><a href="#workaround_suppress_lvm_warnings">workaround_suppress_lvm_warnings</a></li>
     </ul>
   </li>
 </ul><h1>lib/y2_module_basetest.pm</h1>
@@ -50,16 +49,6 @@
 <pre><code> accept_warning_network_manager_default();</code></pre>
 
 <p>Click on OK when appears a warning indicating that network interfaces are controlled by Network Manager.</p>
-
-<h2 id="workaround_suppress_lvm_warnings">workaround_suppress_lvm_warnings</h2>
-
-<pre><code> workaround_suppress_lvm_warnings();</code></pre>
-
-<p>LVM is polluting stdout with leaked invocation warnings because of file descriptor 3 is assigned to /root/.bash_history.</p>
-
-<p>record_soft_failure if is &#39;is_tumbleweed&#39; for issue &#39;bsc#1124481 - LVM is polluting stdout with leaked invocation warnings&#39;.</p>
-
-<p>The workaround suppresses the warnings by setting the environment variable LVM_SUPPRESS_FD_WARNINGS.</p>
 
 
 </body>

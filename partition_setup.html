@@ -25,7 +25,6 @@
       <li><a href="#addvg">addvg</a></li>
       <li><a href="#addlv">addlv</a></li>
       <li><a href="#addboot">addboot</a></li>
-      <li><a href="#skip_select_first_hard_disk">skip_select_first_hard_disk</a></li>
       <li><a href="#select_first_hard_disk">select_first_hard_disk</a></li>
       <li><a href="#enable_encryption_guided_setup">enable_encryption_guided_setup</a></li>
       <li><a href="#take_first_disk_storage_ng">take_first_disk_storage_ng</a></li>
@@ -108,17 +107,13 @@
 
 <p><code>$part_size</code> is the size of partition.</p>
 
-<h2 id="skip_select_first_hard_disk">skip_select_first_hard_disk</h2>
-
-<pre><code> skip_select_first_hard_disk();</code></pre>
-
-<p>Skip selecting first hard disk and return 0. Return 1 if no selection of hard disk is required or the first hard disk is already pre-selected.</p>
-
 <h2 id="select_first_hard_disk">select_first_hard_disk</h2>
 
 <pre><code> select_first_hard_disk();</code></pre>
 
 <p>Select the first hard disk.</p>
+
+<p>The device should be [sv]da, other devices will be unselected. [sv]da device will also be force-selected at the end if needed (in some cases [sv]da is at the end of the list).</p>
 
 <h2 id="enable_encryption_guided_setup">enable_encryption_guided_setup</h2>
 

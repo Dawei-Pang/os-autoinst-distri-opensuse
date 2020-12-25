@@ -16,6 +16,8 @@
     <ul>
       <li><a href="#verify_license_has_to_be_accepted">verify_license_has_to_be_accepted</a></li>
       <li><a href="#accept_license">accept_license</a></li>
+      <li><a href="#upload_autoyast_profile">upload_autoyast_profile</a></li>
+      <li><a href="#upload_autoyast_schema">upload_autoyast_schema</a></li>
     </ul>
   </li>
 </ul><h1>lib/y2_logs_helper.pm</h1>
@@ -35,6 +37,18 @@
 <p>Select checkbox accepting the License agreement and check if it is actually selected.</p>
 
 <p>Mark the test as failed if the checkbox is not selected after sending an appropriate command, otherwise proceed further.</p>
+
+<h2 id="upload_autoyast_profile">upload_autoyast_profile</h2>
+
+<pre><code>    upload_autoyast_profile($self);</code></pre>
+
+<p>Uploads autoyast profile used for the installation, as well as modified profile, in case feature to modify the profile dynamically was used. Non existing files will be ignored.</p>
+
+<h2 id="upload_autoyast_schema">upload_autoyast_schema</h2>
+
+<pre><code>    upload_autoyast_schema($self);</code></pre>
+
+<p>Uploads autoyast schema files shipped in the distribution as a tarball. If expected directory doesn&#39;t exist, no attempt to upload logs occurs.</p>
 
 
 </body>

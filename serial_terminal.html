@@ -15,6 +15,7 @@
   <li>
     <ul>
       <li><a href="#add_serial_console">add_serial_console</a></li>
+      <li><a href="#prepare_serial_console">prepare_serial_console</a></li>
       <li><a href="#get_login_message">get_login_message</a></li>
       <li><a href="#login">login</a></li>
       <li><a href="#download_file">download_file</a></li>
@@ -28,6 +29,12 @@
 <pre><code>    add_serial_console($console);</code></pre>
 
 <p>Adds $console to /etc/securetty (unless already in file), enables systemd service and start it. It requires selecting root console before.</p>
+
+<h2 id="prepare_serial_console">prepare_serial_console</h2>
+
+<pre><code>    prepare_serial_console();</code></pre>
+
+<p>Wrapper for add_serial_console.</p>
 
 <h2 id="get_login_message">get_login_message</h2>
 

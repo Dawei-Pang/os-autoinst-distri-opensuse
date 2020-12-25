@@ -25,7 +25,10 @@
       <li><a href="#turn_off_kde_screensaver">turn_off_kde_screensaver</a></li>
       <li><a href="#turn_off_gnome_screensaver">turn_off_gnome_screensaver</a></li>
       <li><a href="#turn_off_gnome_suspend">turn_off_gnome_suspend</a></li>
+      <li><a href="#turn_off_screensaver">turn_off_screensaver</a></li>
       <li><a href="#untick_welcome_on_next_startup">untick_welcome_on_next_startup</a></li>
+      <li><a href="#workaround_broken_opensuse_welcome_window">workaround_broken_opensuse_welcome_window</a></li>
+      <li><a href="#handle_welcome_screen">handle_welcome_screen</a></li>
     </ul>
   </li>
 </ul><h1>lib/x11utils.pm</h1>
@@ -100,11 +103,29 @@
 
 <p>Disable suspend in gnome. To be called from a command prompt, for example an xterm window.</p>
 
+<h2 id="turn_off_screensaver">turn_off_screensaver</h2>
+
+<pre><code> turn_off_screensaver();</code></pre>
+
+<p>Turns off the screensaver depending on desktop environment</p>
+
 <h2 id="untick_welcome_on_next_startup">untick_welcome_on_next_startup</h2>
 
 <pre><code> untick_welcome_on_next_startup();</code></pre>
 
 <p>untick welcome page on next startup.</p>
+
+<h2 id="workaround_broken_opensuse_welcome_window">workaround_broken_opensuse_welcome_window</h2>
+
+<pre><code> workaround_broken_opensuse_welcome_window();</code></pre>
+
+<p>Kill broken opensuse-welcome window and restart it properly to workaround boo#1170586.</p>
+
+<h2 id="handle_welcome_screen">handle_welcome_screen</h2>
+
+<pre><code> handle_welcome_screen([timeout =&gt; $timeout]);</code></pre>
+
+<p>openSUSE Welcome window should be auto-launched. Disable auto-launch on next boot and close application. Also handle workarounds when needed.</p>
 
 
 </body>

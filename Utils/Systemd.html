@@ -16,6 +16,8 @@
     <ul>
       <li><a href="#disable_and_stop_service">disable_and_stop_service</a></li>
       <li><a href="#systemctl">systemctl</a></li>
+      <li><a href="#get_started_systemd_services">get_started_systemd_services</a></li>
+      <li><a href="#clear_started_systemd_services">clear_started_systemd_services</a></li>
     </ul>
   </li>
 </ul><h1>lib/Utils/Systemd.pm</h1>
@@ -35,6 +37,14 @@
 <p>Wrapper around systemctl call to be able to add some useful options.</p>
 
 <p>Please note that return code of this function is handle by &#39;script_run&#39; or &#39;assert_script_run&#39; function, and as such, can be different.</p>
+
+<h2 id="get_started_systemd_services">get_started_systemd_services</h2>
+
+<p>Return list of started systemd services</p>
+
+<h2 id="clear_started_systemd_services">clear_started_systemd_services</h2>
+
+<p>Clear the list of started systemd services</p>
 
 
 </body>

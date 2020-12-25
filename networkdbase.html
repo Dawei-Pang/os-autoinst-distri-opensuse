@@ -15,10 +15,10 @@
   <li>
     <ul>
       <li><a href="#assert_script_run_container">assert_script_run_container</a></li>
+      <li><a href="#script_run_container">script_run_container</a></li>
       <li><a href="#start_nspawn_container">start_nspawn_container</a></li>
       <li><a href="#restart_nspawn_container">restart_nspawn_container</a></li>
       <li><a href="#setup_nspawn_container">setup_nspawn_container</a></li>
-      <li><a href="#setup_nspawn_unit">setup_nspawn_unit</a></li>
       <li><a href="#write_container_file">write_container_file</a></li>
       <li><a href="#write_file">write_file</a></li>
       <li><a href="#wait_for_networkd">wait_for_networkd</a></li>
@@ -31,6 +31,12 @@
 <h2 id="assert_script_run_container">assert_script_run_container</h2>
 
 <pre><code> assert_script_run_container($machine, $script);</code></pre>
+
+<p>Run <code>$script</code> in the systemd-nspawn container called <code>$machine</code>.</p>
+
+<h2 id="script_run_container">script_run_container</h2>
+
+<pre><code> script_run_container($machine, $script);</code></pre>
 
 <p>Run <code>$script</code> in the systemd-nspawn container called <code>$machine</code>.</p>
 
@@ -51,12 +57,6 @@
 <pre><code> setup_nspawn_container($machine, $repo, $packages);</code></pre>
 
 <p>Create a chroot for a systemd-nspawn container called <code>$machine</code>. Use <code>zypper</code> to add a repo to the chroot and install (with <code>--no-recommends</code>) the packages listed in <code>$packages</code>.</p>
-
-<h2 id="setup_nspawn_unit">setup_nspawn_unit</h2>
-
-<pre><code> setup_nspawn_unit();</code></pre>
-
-<p>Create a custom systemd service unit file called <code>systemd-nspawn-openqa@.service</code>. This will have some custom config that is needed for our tests (eg. bridged network and binding <code>/dev/sr0</code> to access the DVD drive from within the container).</p>
 
 <h2 id="write_container_file">write_container_file</h2>
 
