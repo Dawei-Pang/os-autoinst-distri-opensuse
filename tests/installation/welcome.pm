@@ -69,11 +69,11 @@ sub get_product_shortcuts {
     }
     # We got new products in SLE 15 SP1
     elsif (is_sle '15-SP1+') {
-        return (sles => 's') if (get_var('ISO') =~ /Full/ && is_ppc64le() && get_var('NTLM_AUTH_INSTALL'));
+        return (sles => 's') if (is_ppc64le() && (get_var('FLAVOR') =~ /Full/) && (is_sle '15-SP4+'));
         return (
             sles => (is_ppc64le() || is_s390x()) ? 'u'
             : is_aarch64() ? 's'
-            : ((is_sle '15-SP4+') && (get_var('ISO') =~ /Full/)) ? 's'
+            : ((is_sle '15-SP4+') && (get_var('FLAVOR') =~ /Full/)) ? 's'
             : 'i',
             sled => 'x',
             hpc => is_x86_64() ? 'g' : 'u',

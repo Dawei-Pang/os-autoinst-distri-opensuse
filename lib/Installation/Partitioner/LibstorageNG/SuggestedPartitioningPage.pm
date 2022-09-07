@@ -21,7 +21,11 @@ use constant {
 sub press_guided_setup_button {
     my ($self) = @_;
     assert_screen($self->SUGGESTED_PARTITIONING_PAGE);
-    send_key('alt-g');
+    send_key 'alt-g', wait_screen_change => 1, do_wait => 10;
+    if (check_var('ARCH', 'ppc64le') && check_screen($self->SUGGESTED_PARTITIONING_PAGE, 30)) {
+       record_soft_failure 'Fail to send alt-g key';
+       send_key 'alt-g', wait_screen_change => 1, do_wait => 10;
+    }
 }
 
 =head2 select_start_with_existing_partitions
