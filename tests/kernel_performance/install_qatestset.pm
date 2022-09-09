@@ -77,6 +77,11 @@ sub os_update {
 
 
 sub run {
+    # Add more packages for HANAonKVM with 15SP2
+    if (get_var('HANA_PERF') && get_var('VERSION') eq '15-SP2' && get_var('SYSTEM_ROLE') eq 'kvm') {
+        zypper_call("install wget iputils supportutils rsync screen smartmontools tcsh");
+    }
+
     if (my $hana_perf_os_update = get_var("HANA_PERF_OS_UPDATE")) {
         os_update($hana_perf_os_update);
     }
