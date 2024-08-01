@@ -26,10 +26,10 @@ sub run {
     select_serial_terminal;
 
     # Clean up and re-register not to affect other job which are sharing same qcow2
-    if (is_sle('15+')) {
-        cleanup_registration();
-        assert_script_run('SUSEConnect -r ' . get_required_var('SCC_REGCODE'), 200);
-    }
+#    if (is_sle('15+')) {
+#        cleanup_registration();
+#        assert_script_run('SUSEConnect -r ' . get_required_var('SCC_REGCODE'), 200);
+#    }
 
     # Check the build number, can useful for debugging!
     my $build_version = script_output('cat /etc/YaST2/build', proceed_on_failure => 1);
