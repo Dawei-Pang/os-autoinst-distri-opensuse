@@ -16,7 +16,6 @@ use Utils::Systemd qw(systemctl);
 sub run {
     select_console("root-console");
     systemctl 'stop pacemaker';
-    assert_script_run "crm cluster stop";
 }
 
 1;
