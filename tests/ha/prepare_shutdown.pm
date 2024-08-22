@@ -14,6 +14,7 @@ use testapi;
 
 sub run {
     # We need to stop the cluster stack to avoid fencing during shutdown
+    select_console("root-console");
     assert_script_run("crm cluster stop");
 }
 
