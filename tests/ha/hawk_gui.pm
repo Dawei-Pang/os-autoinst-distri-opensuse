@@ -48,9 +48,9 @@ sub run {
     # TODO: Use another namespace using team group name
     # Docker image source in https://github.com/ricardobranco777/hawk_test
     # It will be eventually moved to https://github.com/ClusterLabs/hawk/e2e_test
-    my $image = "registry.opensuse.org/devel/openqa/ci/tooling/containers_15_4/hawk_test:latest";
-
-    assert_script_run("env DOCKER_CONTENT_TRUST=1 podman pull registry.opensuse.org/home/dawei_pang/branches/devel/openqa/ci/tooling/containers_15_4/hawk_test:latest", 240);
+#    my $image = "registry.opensuse.org/devel/openqa/ci/tooling/containers_15_4/hawk_test:latest";
+    my $image = "registry.opensuse.org/home/dawei_pang/branches/devel/openqa/ci/tooling/containers_15_4/hawk_test:latest";
+    assert_script_run("env DOCKER_CONTENT_TRUST=1 podman pull $image", 240);
 
     # Rest of the test needs to be performed on the x11 console, but with the
     # HA_CLUSTER setting that console is not yet activated; newer versions of gdm
@@ -83,7 +83,7 @@ sub run {
     # and then cd to the user's home directory.
     become_root;
     assert_script_run("cd /home/$testapi::username");
-    my $test_cmd = "podman run --rm --name test --ipc=host -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=\$DISPLAY -v \$PWD/$path:/$path ";
+    my $test_cmd = "env DOCKER_CONTENT_TRUST=1 podman run --rm --name test --ipc=host -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=\$DISPLAY -v \$PWD/$path:/$path ";
     $test_cmd .= "$image -b $browser -H $node1 -S $node2 -s $testapi::password -r /$results --virtual-ip $virtual_ip";
     enter_cmd "$test_cmd 2>&1 | tee $logs; echo $pyscr-\$PIPESTATUS > $retcode";
     assert_screen "hawk-$browser", 60;
