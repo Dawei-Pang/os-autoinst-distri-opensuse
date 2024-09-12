@@ -113,7 +113,7 @@ sub run {
     if (!get_var("VER_CFG")) {
         my $mybuild = check_var('BUILD', 'GM') ? "GM": "Build" . get_var("BUILD". '');
         my $VER_CFG = "PRODUCT_RELEASE=SLES-" . get_var('VERSION') . ";PRODUCT_BUILD=$mybuild";
-        set_var('VER_CFG', $mybuild);
+        set_var('VER_CFG', $VER_CFG);
     }
 
     install_pkg;
