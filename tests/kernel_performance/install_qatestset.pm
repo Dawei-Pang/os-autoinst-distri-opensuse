@@ -109,6 +109,13 @@ sub run {
 
     my $project_m_role = get_var("PROJECT_M_ROLE", "");
 
+    # Fill the VER_CFG by default value if it is undefined
+    if (!get_var("VER_CFG")) {
+        my $mybuild = check_var('BUILD', 'GM') ? "GM": "Build" . get_var("BUILD". '');
+        my $VER_CFG = "PRODUCT_RELEASE=SLES-" . get_var('VERSION') . ";PRODUCT_BUILD=$mybuild";
+        set_var('VER_CFG', $mybuild);
+    }
+
     install_pkg;
     setup_environment;
 
