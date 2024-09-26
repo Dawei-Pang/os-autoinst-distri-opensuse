@@ -49,7 +49,6 @@ sub run {
     # Docker image source in https://github.com/ricardobranco777/hawk_test
     # It will be eventually moved to https://github.com/ClusterLabs/hawk/e2e_test
 #    my $image = "registry.opensuse.org/devel/openqa/ci/tooling/containers_15_4/hawk_test:latest";
-    assert_script_run "rpm -qi hawk2";
     my $image = "registry.opensuse.org/home/dawei_pang/branches/devel/openqa/ci/tooling/containers_15_4/hawk_test:latest";
     assert_script_run("env DOCKER_CONTENT_TRUST=1 podman pull $image", 240);
 
