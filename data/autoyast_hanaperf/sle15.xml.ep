@@ -252,7 +252,7 @@ sed -i '/^Include / s/Include /#Include /g' /etc/ssh/sshd_config.d/40-suse-crypt
        <filename>chroot-post1.sh</filename>
        <interpreter>shell</interpreter>
        <source><![CDATA[
-echo -e "10.144.179.1\t dashboard.qa2.suse.asia\n10.144.179.3\t amazon.qa2.suse.asia\n10.144.179.6\t ph039.qa2.suse.asia" >> /etc/hosts       
+#echo -e "10.144.179.1\t dashboard.qa2.suse.asia\n10.144.179.3\t amazon.qa2.suse.asia\n10.144.179.6\t ph039.qa2.suse.asia" >> /etc/hosts       
 ]]>
        </source>
     </script>
