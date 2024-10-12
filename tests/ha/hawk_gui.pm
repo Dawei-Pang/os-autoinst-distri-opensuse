@@ -150,10 +150,10 @@ sub post_fail_hook {
     my ($self) = @_;
 
     my $path = 'test';
-    select_console('root-console');
+    select_console('user-console');
 
     # Upload the logs
-    script_run "tar zcf logs.tgz $path";
+    script_run "tar zcf post_fail_hook-logs.tgz $path";
     upload_logs "logs.tgz";
 
     # Execute the common part
