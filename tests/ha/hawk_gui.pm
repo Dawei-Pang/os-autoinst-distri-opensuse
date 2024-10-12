@@ -146,4 +146,18 @@ sub run {
     barrier_wait("HAWK_FENCE_$cluster_name");
 }
 
+sub post_fail_hook {
+    my ($self) = @_;
+
+    my $path = 'test';
+    select_console('root-console');
+
+    # Upload the logs
+    script_run "tar zcf logs.tgz $path";
+    upload_logs "logs.tgz";
+
+    # Execute the common part
+    $self->post_fail_hook;
+}
+
 1;
