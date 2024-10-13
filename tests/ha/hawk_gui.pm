@@ -157,7 +157,7 @@ sub post_fail_hook {
     upload_logs "logs.tgz";
 
     # Execute the common part
-    $self->post_fail_hook;
+    $self->SUPER::post_fail_hook;
 }
 
 1;
