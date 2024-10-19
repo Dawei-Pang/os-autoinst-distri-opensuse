@@ -21,8 +21,8 @@ sub check_hawk_cpu {
     my %args = @_;
     my $cluster_name = get_cluster_name;
     my @cpu_usage = ();
-    my $threshold = $args{idle_check} ? 10 : 50;
-    my $idle_check_loops = 60;
+    my $threshold = $args{idle_check} ? 5 : 10;
+    my $idle_check_loops = 5;
 
     # Do not wait on barriers if checking CPU usage while HAWK is idle
     barrier_wait("HAWK_GUI_CPU_TEST_START_$cluster_name") unless $args{idle_check};
