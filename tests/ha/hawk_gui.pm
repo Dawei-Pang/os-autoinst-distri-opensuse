@@ -88,7 +88,7 @@ sub run {
     enter_cmd "$test_cmd 2>&1 | tee $logs; echo $pyscr-\$PIPESTATUS > $retcode";
     assert_screen "hawk-$browser", 60;
 
-    my $loop_count = 72000;    # 30 minutes (360*5)
+    my $loop_count = 360;    # 30 minutes (360*5)
     while (1) {
         $loop_count--;
         last if ($loop_count < 0);
