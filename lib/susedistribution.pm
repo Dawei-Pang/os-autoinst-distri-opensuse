@@ -929,12 +929,13 @@ sub activate_console {
     }
     elsif ($console eq 'sol' && get_var('BACKEND', '') =~ /ipmi/) {
         diag 'activate_console for SOL with IPMI backend';
-        $user ||= 'root';
-        type_string "$user";
-        send_key "ret";
-        handle_password_prompt;
-        ensure_user($user);
-        assert_screen "text-logged-in-$user", 60;
+        serial_terminal::login($user, $self->prompt_for_user($user));
+#        $user ||= 'root';
+#        type_string "$user";
+#        send_key "ret";
+#        handle_password_prompt;
+#        ensure_user($user);
+#        assert_screen "text-logged-in-$user", 60;
     }
     elsif (
         $console eq 'installation'
