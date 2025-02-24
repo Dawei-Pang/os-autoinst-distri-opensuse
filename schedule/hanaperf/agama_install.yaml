@@ -1,0 +1,8 @@
+name:          sle16-HANA-PERF-Installation
+description:  
+    SLE16 installation with agama
+schedule:
+    - installation/ipxe_install
+    - installation/agama_reboot
+    - support_server/login 
+#    - kernel_performance/install_sleperf
