@@ -19,7 +19,7 @@
   "storage": {
     "drives": [
       {
-        "search": "/dev/disk/by-id/scsi-SATA_DELLBOSS_VD_ad6aac4ec67e0010", 
+        search: '/dev/disk/by-id/{{HANA_PERF_OS_DISK}}',
         "partitions": [
           { "search": "*", "delete": true },
           { "generate": "default" }
