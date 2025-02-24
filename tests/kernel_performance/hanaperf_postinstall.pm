@@ -19,7 +19,12 @@ sub run {
     select_serial_terminal;
 
     assert_script_run 'nmcli connection show';
-
-
+    assert_script_run 'rm -f /etc/NetworkManager/system-connections/default_connection.nmconnection';
+    assert_script_run 'echo -e "[main]\nno-auto-default=type:ethernet" > /etc/NetworkManager/conf.d/disable_auto.conf';
+    assert_script_run 'systemctl restart NetworkManager';
+    assert_script_run 'nmcli networking off';
+    assert_script_run 'nmcli networking on';
+    assert_script_run 'nmcli connection add type ethernet con-name "nic0" ifname "*" mac '.get_var("HANA_PERF_OS_NIC");
+    assert_script_run 'nmcli connection show';
 }
 1;
