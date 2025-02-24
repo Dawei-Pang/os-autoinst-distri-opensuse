@@ -64,6 +64,9 @@
         body: |||
           #!/usr/bin/env bash
           echo 'PermitRootLogin yes' > /etc/ssh/sshd_config.d/root.conf
+          rm -f /etc/NetworkManager/system-connections/default_connection.nmconnection
+          echo -e "[main]\nno-auto-default=type:ethernet" > /etc/NetworkManager/conf.d/disable_auto.conf
+          echo -e "[connection]\nid=nic0\nuuid=83e3d3a3-2601-47f0-913f-e1ebf0eb5cdb\ntype=ethernet\n[ethernet]\nmac-address=5C:6F:69:14:14:12\n[ipv4]\nmethod=auto\n" > /etc/NetworkManager/system-connections/nic0.nmconnection"
         |||
       }
     ]

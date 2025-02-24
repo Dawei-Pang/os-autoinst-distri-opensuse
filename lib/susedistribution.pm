@@ -927,16 +927,16 @@ sub activate_console {
         $self->set_standard_prompt('root', os_type => $os_type, skip_set_standard_prompt => $args{skip_set_standard_prompt});
         save_svirt_pty;
     }
-    elsif ($console eq 'sol' && get_var('BACKEND', '') =~ /ipmi/) {
-        diag 'activate_console for SOL with IPMI backend';
-        serial_terminal::login($user, $self->prompt_for_user($user));
+#    elsif ($console eq 'sol' && get_var('BACKEND', '') =~ /ipmi/) {
+#        diag 'activate_console for SOL with IPMI backend';
+#        serial_terminal::login($user, $self->prompt_for_user($user));
 #        $user ||= 'root';
 #        type_string "$user";
 #        send_key "ret";
 #        handle_password_prompt;
 #        ensure_user($user);
 #        assert_screen "text-logged-in-$user", 60;
-    }
+#    }
     elsif (
         $console eq 'installation'
         && ((get_var('BACKEND', '') =~ /ipmi|s390x|spvm|pvm_hmc/) || get_var('S390_ZKVM'))
