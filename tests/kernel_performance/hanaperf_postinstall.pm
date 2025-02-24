@@ -17,6 +17,7 @@ sub run {
     my $self = shift;
 
     select_console 'sol', await_console => 0;
+    select_serial_terminal;
 
     assert_script_run 'nmcli connection show';
     assert_script_run 'rm -f /etc/NetworkManager/system-connections/default_connection.nmconnection';
