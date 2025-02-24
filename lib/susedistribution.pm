@@ -927,7 +927,7 @@ sub activate_console {
         $self->set_standard_prompt('root', os_type => $os_type, skip_set_standard_prompt => $args{skip_set_standard_prompt});
         save_svirt_pty;
     }
-    elsif ($console eq 'sol' && (get_var('BACKEND', '') =~ /ipmi/) {
+    elsif ($console eq 'sol' && get_var('BACKEND', '') =~ /ipmi/) {
         diag 'activate_console for SOL with IPMI backend';
         $user ||= 'root';
         type_string "$user";
