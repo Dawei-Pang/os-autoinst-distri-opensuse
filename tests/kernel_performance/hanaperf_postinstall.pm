@@ -17,6 +17,7 @@ sub run {
     my $self = shift;
 
     select_console 'sol', await_console => 0;
+    assert_screen('linux-login', 1800);
     select_serial_terminal();
 
     assert_script_run 'nmcli connection show';
