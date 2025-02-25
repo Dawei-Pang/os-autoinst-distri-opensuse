@@ -63,10 +63,23 @@
         chroot: true,
         body: |||
           #!/usr/bin/env bash
+          HOST_INFO_DB=(
+          "hana01","2c:ea:7f:ea:b0:24"
+          "hana02","2c:ea:7f:ea:ad:0c"
+          "hana03","2c:ea:7f:ea:bd:7c"
+          "hana04","5c:6f:69:14:14:12"
+          "hana05","5c:6f:69:13:f3:84"
+          )
+          for HOST_INFO in ${HOST_INFO_DB[@]}; do
+                IFS=',' read -r HOST_SHORT_NAME HOST_MAC <<< "${HOST_INFO}"
+                if ip link show | grep -qi "${HOST_MAC}";then
+                    break
+                fi
+          done
           echo 'PermitRootLogin yes' > /etc/ssh/sshd_config.d/root.conf
           rm -f /etc/NetworkManager/system-connections/default_connection.nmconnection
           echo -e "[main]\nno-auto-default=type:ethernet" > /etc/NetworkManager/conf.d/disable_auto.conf
-          echo -e "[connection]\nid=nic0\nuuid=83e3d3a3-2601-47f0-913f-e1ebf0eb5cdb\ntype=ethernet\n[ethernet]\nmac-address=5C:6F:69:14:14:12\n[ipv4]\nmethod=auto\n" > /etc/NetworkManager/system-connections/nic0.nmconnection
+          echo -e "[connection]\nid=nic0\nuuid=$(uuidgen)\ntype=ethernet\n[ethernet]\nmac-address=${HOST_MAC}\n[ipv4]\nmethod=auto\n" > /etc/NetworkManager/system-connections/nic0.nmconnection
           chmod 0600 /etc/NetworkManager/system-connections/nic0.nmconnection
         |||
       }
