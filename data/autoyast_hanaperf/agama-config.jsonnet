@@ -19,7 +19,7 @@
   storage: {
     drives: [
       {
-        search: '/dev/disk/by-id/scsi-SATA_DELLBOSS_VD_b68e1f8449390010',
+        search: '/dev/disk/by-id/{{OSDISK}}',
         partitions: [
           { search: '*', delete: true },
           { generate: 'default' },
@@ -69,6 +69,8 @@
           "hana03","2c:ea:7f:ea:bd:7c"
           "hana04","5c:6f:69:14:14:12"
           "hana05","5c:6f:69:13:f3:84"
+          "legolas","98:be:94:07:3f:c4"
+          "blackcurrant","98:be:94:0b:70:f8"
           )
           for HOST_INFO in ${HOST_INFO_DB[@]}; do
                 IFS=',' read -r HOST_SHORT_NAME HOST_MAC <<< "${HOST_INFO}"
@@ -77,6 +79,7 @@
                 fi
           done
           echo 'PermitRootLogin yes' > /etc/ssh/sshd_config.d/root.conf
+          systemctl enable sshd
           # Workaround for NetworkManager to make sure the expected NIC up only
           rm -f /etc/NetworkManager/system-connections/default_connection.nmconnection
           echo -e "[main]\nno-auto-default=type:ethernet" > /etc/NetworkManager/conf.d/disable_auto.conf
