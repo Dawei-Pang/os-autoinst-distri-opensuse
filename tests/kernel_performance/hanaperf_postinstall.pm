@@ -95,8 +95,7 @@ sub os_update {
 }
 
 sub handle_repo_and_package {
-    my $package_install = "qa_lib_ctcs2 wget bc bzip2 screen cpupower \
-        pciutils lsscsi smartmontools netcat-openbsd libltdl7 unzip lvm";
+    my $package_install = "qa_lib_ctcs2 wget bc bzip2 screen cpupower pciutils lsscsi smartmontools netcat-openbsd libltdl7 unzip lvm";
     my $package_remove = "snapper-zypp-plugin";
 
     # Add QA:HEAD repo
