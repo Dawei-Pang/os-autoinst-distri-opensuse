@@ -46,6 +46,7 @@ sub setup_environment {
     my $mitigation_switch = get_var('MITIGATION_SWITCH','mitigations=auto');
     my $qaset_kernel_tag = get_var('QASET_KERNEL_TAG', '');
     my $ver_cfg = get_var('VER_CFG');
+    my $disable_services = "qaperf.service chronyd.service firewalld.service";
 
     # Fill $ver_cfg by default value if it is undefined
     unless ($ver_cfg) {
@@ -54,11 +55,13 @@ sub setup_environment {
     }
 
     # Disable service
-    assert_script_run("systemctl disable qaperf.service");
-    assert_script_run("systemctl disable chronyd.service");
+    assert_script_run("systemctl disable $disable_services");
 
     # sync time
     assert_script_run("chronyd -q 'server 0.europe.pool.ntp.org iburst'");
+
+    # set static hostname
+    assert_script_run("hostnamectl hostname `hostname -s`");
 
     # create basic /root/qaset/config
     assert_script_run("mkdir -p /root/qaset/");
@@ -91,22 +94,28 @@ sub os_update {
     zypper_call("dup", timeout => 1800);
 }
 
-sub run {
-    my $self = shift;
-
-    my $package_installed = "qa_lib_ctcs2 wget bc bzip2 screen cpupower pciutils lsscsi smartmontools netcat-openbsd libltdl7";
+sub handle_repo_and_package {
+    my $package_install = "qa_lib_ctcs2 wget bc bzip2 screen cpupower \
+        pciutils lsscsi smartmontools netcat-openbsd libltdl7 unzip lvm";
     my $package_remove = "snapper-zypp-plugin";
-
-    my $project_m_role = get_var("PROJECT_M_ROLE", "");
-
-    select_console 'root-console';
 
     # Add QA:HEAD repo
     add_qa_head_repo;
 
     # Install mandatory packages for SLE16
-    zypper_call("install $package_installed");
+    zypper_call("install $package_install");
     zypper_call("rm $package_remove");
+}
+
+sub run {
+    my $self = shift;
+
+    my $project_m_role = get_var("PROJECT_M_ROLE", "");
+
+    select_console 'root-console';
+
+    # Add repo, remove and install packages
+    handle_repo_and_package;
 
     # Update OS for MU testing
     if (my $hana_perf_os_update = get_var("HANA_PERF_OS_UPDATE")) {
