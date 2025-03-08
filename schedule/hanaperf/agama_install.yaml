@@ -6,6 +6,7 @@ schedule:
     - installation/agama_reboot
     - support_server/login
     - kernel_performance/hanaperf_postinstall
+    - '{{full_run}}'
 conditional_schedule:
   pxe_bootloader:
     ARCH:
@@ -13,3 +14,8 @@ conditional_schedule:
         - installation/ipxe_install
       ppc64le:
         - installation/bootloader
+  full_run:
+    HANA_PERF_FULL_RUN:
+      1:
+        - autoyast/console
+        - kernel_performance/full_run
