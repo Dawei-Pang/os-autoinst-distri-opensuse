@@ -121,9 +121,8 @@ sub run {
     # Workaround for SLE16
     add_qa_head_repo;
     zypper_call 'in wget hana_insserv_compat';
-    script_run 'nmcli c show';
-    script_run 'ip a';
-    assert_script_run("hostnamectl hostname `hostname -s`");
+    assert_script_run 'setenforce Permissive';
+#    assert_script_run("hostnamectl hostname `hostname -s`");
     # Add host's IP to /etc/hosts
     $self->add_hostname_to_hosts;
 
