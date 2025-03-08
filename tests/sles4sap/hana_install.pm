@@ -19,6 +19,7 @@ use Utils::Systemd 'systemctl';
 use version_utils 'is_sle';
 use POSIX 'ceil';
 use Utils::Logging 'save_and_upload_log';
+use repo_tools 'add_qa_head_repo';
 
 sub is_multipath {
     return (get_var('MULTIPATH') and (get_var('MULTIPATH_CONFIRM') !~ /\bNO\b/i));
@@ -116,6 +117,10 @@ sub run {
         push @zypper_in, 'ClusterTools2';
         zypper_call(join(' ', @zypper_in));
     }
+
+    # Workaround for SLE16
+    add_qa_head_repo;
+    zypper_call 'in wget hana_insserv_compat';
 
     # Add host's IP to /etc/hosts
     $self->add_hostname_to_hosts;
