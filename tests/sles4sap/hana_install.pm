@@ -118,11 +118,17 @@ sub run {
         zypper_call(join(' ', @zypper_in));
     }
 
-    # Workaround for SLE16
-    add_qa_head_repo;
-    zypper_call 'in wget hana_insserv_compat';
-    assert_script_run 'setenforce Permissive';
-#    assert_script_run("hostnamectl hostname `hostname -s`");
+    # Workaround for SLE16 if variable WORKAROUND_BSC1234806 set
+    if (get_var("WORKAROUND_BSC1234806") {
+        add_qa_head_repo;
+        zypper_call("in hana_insserv_compat");
+    }
+
+    # Modify SELinux mode to Permissive if variable SLES4SAP_SELINUX_PERMISSIVE set
+    if (get_var("SLES4SAP_SELINUX_PERMISSIVE")) {
+        assert_script_run("setenforce Permissive")
+    }
+
     # Add host's IP to /etc/hosts
     $self->add_hostname_to_hosts;
 

@@ -157,6 +157,10 @@ sub download_hana_assets_from_server {
     my $asset_lock = "/tmp/asset_0";
     my $asset_lock_found = script_run "test -e $asset_lock";    # 0 if asset is already downloaded
     if ($asset_lock_found) {
+        # Install wget package if its command not found
+        if(script_run "which wget") {
+            zypper_call "in wget";
+        }
         assert_script_run "wget -O - $hana_location | tar -xf -", timeout => $nettout;
         assert_script_run "touch $asset_lock";
         # Skip checksum check if DISABLE_CHECKSUM is set, or if checksum file is not
