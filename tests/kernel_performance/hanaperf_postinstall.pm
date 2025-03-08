@@ -36,6 +36,7 @@ sub extract_settings_qaset_config {
     my @fields = split(/;/, $values);
     if (scalar @fields > 0) {
         foreach my $a_value (@fields) {
+            record_info(${a_value});
             assert_script_run("echo '${a_value}' >> /root/qaset/config");
         }
     }
@@ -52,6 +53,7 @@ sub setup_environment {
     unless ($ver_cfg) {
         my $mybuild = check_var('BUILD', 'GM') ? "GM" : "Build" . get_var("BUILD", '');
         $ver_cfg = "PRODUCT_RELEASE=SLES-" . get_var('VERSION') . ";PRODUCT_BUILD=$mybuild";
+        record_info($ver_cfg);
     }
 
     # Disable service
