@@ -120,6 +120,7 @@ sub run {
 
     # Workaround for SLE16 if variable WORKAROUND_BSC1234806 set
     if (get_var("WORKAROUND_BSC1234806") {
+        record_info("bsc#1234806", "workaround for bsc#1234806 by installing hana_insserv_compat package", result => 'softfail');
         add_qa_head_repo;
         zypper_call("in hana_insserv_compat");
     }
