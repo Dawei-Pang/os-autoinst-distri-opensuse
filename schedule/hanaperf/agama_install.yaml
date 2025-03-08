@@ -17,5 +17,4 @@ conditional_schedule:
   full_run:
     HANA_PERF_FULL_RUN:
       1:
-        - autoyast/console
         - kernel_performance/full_run
