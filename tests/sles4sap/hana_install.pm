@@ -127,7 +127,8 @@ sub run {
 
     # Modify SELinux mode to Permissive if variable SLES4SAP_SELINUX_PERMISSIVE set
     if (get_var("SLES4SAP_SELINUX_PERMISSIVE")) {
-        assert_script_run("setenforce Permissive")
+        assert_script_run("setenforce Permissive");
+        validate_script_output("getenforce", sub { m/Permissive/ });
     }
 
     # Add host's IP to /etc/hosts
