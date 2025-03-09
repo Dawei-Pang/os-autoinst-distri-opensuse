@@ -55,7 +55,7 @@ sub run {
     # Workaround for SLE16 if variable WORKAROUND_BSC1234806 set
     if (get_var("WORKAROUND_BSC1236235")) {
         record_info("bsc#1236235", "workaround for bsc#1234806 by installing libnsl package", result => 'softfail');
-        assert_script_run "rpm -Uvh /sapinst/libnsl1-2.38-160000.4.4.". get_var("ARCH") . ".rpm";
+        assert_script_run "rpm -Uvh /mnt/libnsl1-2.38-160000.4.4.". get_var("ARCH") . ".rpm";
     }
 
     # Define a valid hostname/IP address in /etc/hosts, but not in HA
