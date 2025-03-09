@@ -58,6 +58,11 @@ sub run {
         assert_script_run "rpm -Uvh /mnt/libnsl1-2.38-160000.4.4.". get_var("ARCH") . ".rpm";
     }
 
+    if (get_var("WORKAROUND_BSC1236372")) {
+        record_info("bsc#1236372", "workaround for bsc#1236372 by creating a soft link for /etc/services", result => 'softfail');
+        assert_script_run "ln -s /usr/etc/services /etc/services";
+    }
+
     # Define a valid hostname/IP address in /etc/hosts, but not in HA
     $self->add_hostname_to_hosts if (!get_var('HA_CLUSTER'));
 
