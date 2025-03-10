@@ -126,10 +126,10 @@ sub run {
     }
 
     # Modify SELinux mode
-    if (get_var("WORKAROUND_BSC1239148")) {
-        record_soft_failure("bsc#1239148: workaround by changing mode to Permissive");
-        $self->modify_selinux_setenforce('selinux_mode' => 'Permissive');
-    }
+#    if (get_var("WORKAROUND_BSC1239148")) {
+#        record_soft_failure("bsc#1239148: workaround by changing mode to Permissive");
+#        $self->modify_selinux_setenforce('selinux_mode' => 'Permissive');
+#    }
 
     # Add host's IP to /etc/hosts
     $self->add_hostname_to_hosts;
