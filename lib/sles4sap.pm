@@ -1466,8 +1466,8 @@ sub post_fail_hook {
 
     # We need to be sure that *ALL* consoles are closed, are SUPER:post_fail_hook
     # does not support virtio/serial console yet
-#    reset_consoles;
-#    select_console('root-console');
+    reset_consoles;
+    select_console('root-console');
 
     # YaST logs
     upload_y2logs if is_sle('<16');
