@@ -131,6 +131,10 @@ sub run {
 #        $self->modify_selinux_setenforce('selinux_mode' => 'Permissive');
 #    }
 
+    script_run "semanage boolean -m --on selinuxuser_execmod";
+    script_run "semanage boolean -m --on unconfined_service_transition_to_confined_user";
+    script_run "semanage permissive -a snapper_grub_plugin_t";
+
     # Add host's IP to /etc/hosts
     $self->add_hostname_to_hosts;
 

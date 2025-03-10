@@ -69,6 +69,9 @@ sub run {
 #        record_soft_failure("bsc#1239148: workaround by changing mode to Permissive");
 #        $self->modify_selinux_setenforce('selinux_mode' => 'Permissive');
 #    }
+    script_run "semanage boolean -m --on selinuxuser_execmod";
+    script_run "semanage boolean -m --on unconfined_service_transition_to_confined_user";
+    script_run "semanage permissive -a snapper_grub_plugin_t";
 
     # Define a valid hostname/IP address in /etc/hosts, but not in HA
     $self->add_hostname_to_hosts if (!get_var('HA_CLUSTER'));
