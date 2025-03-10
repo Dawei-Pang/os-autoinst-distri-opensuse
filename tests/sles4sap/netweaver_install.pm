@@ -70,7 +70,7 @@ sub run {
 #        $self->modify_selinux_setenforce('selinux_mode' => 'Permissive');
 #    }
     script_run "semanage boolean -m --on selinuxuser_execmod";
-    script_run "semanage boolean -m --on unconfined_service_transition_to_confined_user";
+    script_run "semanage boolean -m --on unconfined_service_transition_to_unconfined_user";
     script_run "semanage permissive -a snapper_grub_plugin_t";
 
     # Define a valid hostname/IP address in /etc/hosts, but not in HA
