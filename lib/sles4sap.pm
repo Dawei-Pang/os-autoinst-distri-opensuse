@@ -1049,6 +1049,7 @@ sub upload_hana_install_log {
     push(@hana_logs, "/var/log/SAPBusinessOne/B1Installer*") if get_var('BONE');
     script_run 'tar -Jcf /tmp/hana_install.log.tar.xz ' . join(' ', map { "'$_'" } @hana_logs);
     upload_logs '/tmp/hana_install.log.tar.xz';
+    upload_logs '/var/log/audit/audit.log';
 }
 
 =head2 upload_nw_install_log
@@ -1070,6 +1071,7 @@ sub upload_nw_install_log {
     upload_logs('/sapinst/unattended/sapinst_ERS.log', failok => 1);
     upload_logs '/sapinst/unattended/sapinst_dev.log';
     upload_logs '/sapinst/unattended/start_dir.cd';
+    upload_logs '/var/log/audit/audit.log';
 }
 
 =head2 startup_type
