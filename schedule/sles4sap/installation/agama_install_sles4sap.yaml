@@ -7,8 +7,7 @@ description: >
   HANA, NetWeaver, WMP, etc.
 schedule:
   - yam/agama/boot_agama
-  - yam/agama/agama_auto
-  - installation/grub_test
+  - '{{agama_handler}}'
   - installation/first_boot
   - console/system_prepare
   - '{{test_sles4sap}}'
@@ -27,3 +26,12 @@ conditional_schedule:
         - shutdown/grub_set_bootargs
         - shutdown/cleanup_before_shutdown
         - shutdown/shutdown
+  agama_handler:
+    BACKEND:
+      pvm_hmc:
+        - installation/agama_reboot 
+      ipmi:
+        - installation/agama_reboot
+      qemu:
+        - yam/agama/agama_auto
+        - installation/grub_test
