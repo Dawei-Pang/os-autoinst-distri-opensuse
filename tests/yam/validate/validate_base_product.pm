@@ -17,6 +17,8 @@ sub run {
     my $expected_prod = get_required_var("AGAMA_PRODUCT_ID");
     my $prod = script_output 'basename `readlink /etc/products.d/baseproduct ` .prod';
     assert_equals($expected_prod, $prod, "Wrong product name in '/etc/products.d/baseproduct'");
+    record_info('sestatus', script_output('sestatus'));
+    record_info('cmdline', script_output('cat /proc/cmdline'));
 }
 
 1;
