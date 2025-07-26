@@ -179,6 +179,8 @@ sub set_selinux {
     return unless (has_selinux);
 
     record_info('sestatus', script_output('sestatus'));
+    record_info('kernel cmdline', script_output('cat /proc/cmdline'));
+    validate_script_output("sestatus", sub { m/.*Current\ mode:\ .*permissive.*/sx });
     my $selinux_mode = get_var('HANAPERF_SELINUX_SETENFORCE', 'Enforcing');
 
     return if (script_output('getenforce') =~ m/$selinux_mode/i);
