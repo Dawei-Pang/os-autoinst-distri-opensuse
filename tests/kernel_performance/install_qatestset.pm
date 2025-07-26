@@ -209,6 +209,8 @@ sub run {
 
     select_console 'root-console' if (is_sle('16+') && get_var('HANA_PERF'));
 
+    record_info('repos.d', script_output('ls /etc/zypp/repos.d'));
+    record_info('SLES_SAP.repo', script_output('cat /etc/zypp/repos.d/SLES_SAP.repo'));
     set_selinux;
 
     # Add more packages for HANAonKVM with 15SP2
