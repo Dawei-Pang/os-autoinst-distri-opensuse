@@ -11,10 +11,25 @@
     sshPublicKey: 'enable ssh',
   },
   software: {
-    patterns: ['sles_sap_HADB', 'sles_sap_HAAPP', 'sles_sap_DB', 'sles_sap_APP'],
+    patterns: ['sles_sap_HADB', 'sles_sap_HAAPP', 'sles_sap_DB', 'sles_sap_APP', 'selinux'],
   },
   product: {
     id: '{{AGAMA_PRODUCT_ID}}',
+  },
+  network: {
+    connections: [
+      {
+        id: 'eth0',
+        method4: 'auto',
+        method6: 'auto',
+        ignoreAutoDns: false,
+        interface: 'eth0',
+        macAddress: '5C:6F:69:14:14:12',
+        status: 'up',
+        autoconnect: true,
+        persistent: true,
+      },
+    ],
   },
   storage: {
     drives: [
