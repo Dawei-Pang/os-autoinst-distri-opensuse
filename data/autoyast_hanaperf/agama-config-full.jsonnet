@@ -24,6 +24,7 @@
         method6: 'auto',
         ignoreAutoDns: false,
         macAddress: '5C:6F:69:14:14:12',
+        interface: 'eth0',
         status: 'up',
         autoconnect: true,
         persistent: true,
