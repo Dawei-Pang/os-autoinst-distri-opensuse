@@ -19,7 +19,7 @@
   network: {
     connections: [
       {
-        id: 'eth0',
+        id: 'Nic0',
         method4: 'auto',
         method6: 'auto',
         ignoreAutoDns: false,
