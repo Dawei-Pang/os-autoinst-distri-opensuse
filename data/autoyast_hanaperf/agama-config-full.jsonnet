@@ -23,7 +23,6 @@
         method4: 'auto',
         method6: 'auto',
         ignoreAutoDns: false,
-        interface: 'eth0',
         macAddress: '5C:6F:69:14:14:12',
         status: 'up',
         autoconnect: true,
