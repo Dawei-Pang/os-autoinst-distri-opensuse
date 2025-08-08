@@ -28,6 +28,10 @@
         autoconnect: true,
         persistent: true,
       },
+      {
+        id: 'default',
+        status: 'removed',
+      },
     ],
   },
   storage: {
