@@ -10,6 +10,8 @@
     hashedPassword: true,
     sshPublicKey: 'enable ssh',
   },
+   software: {
+  },
   product: {
     id: '{{AGAMA_PRODUCT_ID}}',
     registrationCode: '{{SCC_REGCODE_SLES4SAP}}',
