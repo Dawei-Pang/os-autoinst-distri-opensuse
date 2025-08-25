@@ -10,9 +10,6 @@
     hashedPassword: true,
     sshPublicKey: 'enable ssh',
   },
-  software: {
-    patterns: ['sles_sap_HADB', 'sles_sap_HAAPP', 'sles_sap_DB', 'sles_sap_APP'],
-  },
   product: {
     id: '{{AGAMA_PRODUCT_ID}}',
     registrationCode: '{{SCC_REGCODE_SLES4SAP}}',
