@@ -55,7 +55,7 @@ sub run {
     # SLES 16 provides a libnsl1-stub package for older workloads which require libnsl1
     # Current versions of NetWeaver require libnsl1, so install this stub library too
     # see https://susedoc.github.io/release-notes/slesap-16.0/html/release-notes/index.html#jsc-DOCTEAM-1849
-    zypper_call 'in libnsl-stub1' if is_sle('16+');
+    #zypper_call 'in libnsl-stub1' if is_sle('16+');
 
     # Workaround for SLE16 for bsc#1236372
     if (get_var("WORKAROUND_BSC1236372")) {
@@ -91,7 +91,7 @@ sub run {
 
     # Start the installation
     enter_cmd "cd /sapinst/unattended";
-    $cmd = '../SWPM/sapinst ' . join(' ', @sapoptions) . " | tee sapinst_$instance_type.log";
+    $cmd = '../SWPM10SP44_3/sapinst ' . join(' ', @sapoptions) . " | tee sapinst_$instance_type.log";
 
     # Synchronize with other nodes
     if (get_var('HA_CLUSTER') && !is_node(1)) {
