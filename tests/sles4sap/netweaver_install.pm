@@ -89,8 +89,8 @@ sub run {
     # setting permissions as per sapnote 2589600
     assert_script_run "chmod -Rv 0775 /sapinst/unattended";
 
-#    script_run "mv /sapinst/SWPM /sapinst/SWPM.old";
-#    script_run "mv /sapinst/SWPM10SP44_3 /sapinst/SWPM";
+    script_run "mv /sapinst/SWPM /sapinst/SWPM.old";
+    script_run "mv /sapinst/SWPM10SP44_3 /sapinst/SWPM";
     # Start the installation
     enter_cmd "cd /sapinst/unattended";
     $cmd = '../SWPM/sapinst ' . join(' ', @sapoptions) . " | tee sapinst_$instance_type.log";
