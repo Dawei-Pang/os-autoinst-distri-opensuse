@@ -365,6 +365,7 @@ sub run {
         send_key 'i';
         assert_screen 'ipxe-shell';
         enter_cmd_slow 'chain --replace --autofree '. get_var('IPXE_HTTPSERVER'). '/'. $ip . '/script.ipxe';
+        send_key "ret";
     }
     if (is_agama) {
         assert_screen([qw(load-linux-kernel load-initrd)], 240);
