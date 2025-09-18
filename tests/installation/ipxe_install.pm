@@ -361,7 +361,8 @@ sub run {
     if (match_has_tag("nue-ipxe-menu")) {
         send_key 'i';
         assert_screen 'ipxe-shell';
-        enter_cmd_slow 'chain --replace http://baremetal-support.qe.nue2.suse.org/script.ipxe';
+        enter_cmd_slow 'ifconf --configurator dhcp';
+        enter_cmd_slow 'chain --replace --autofree http://10.168.192.194/script.ipxe';
     }
     if (is_agama) {
         assert_screen([qw(load-linux-kernel load-initrd)], 240);
