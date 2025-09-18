@@ -22,6 +22,7 @@ use virt_autotest::utils qw(is_kvm_host is_xen_host);
 use HTTP::Tiny;
 use IPC::Run;
 use Time::HiRes 'sleep';
+use Socket;
 
 
 sub poweroff_host {
@@ -359,9 +360,11 @@ sub run {
 
     assert_screen([qw(virttest-pxe-menu qa-net-selection prague-pxe-menu pxe-menu nue-ipxe-menu)], 600);
     if (match_has_tag("nue-ipxe-menu")) {
+        my $host = get_required_var('SUT_IP');
+        my $ip = inet_ntoa(inet_aton($host));
         send_key 'i';
         assert_screen 'ipxe-shell';
-        enter_cmd_slow 'chain --replace --autofree '. get_var('IPXE_HTTPSERVER'). '/'. get_var('SUT_IP') . '/script.ipxe';
+        enter_cmd_slow 'chain --replace --autofree '. get_var('IPXE_HTTPSERVER'). '/'. $ip . '/script.ipxe';
     }
     if (is_agama) {
         assert_screen([qw(load-linux-kernel load-initrd)], 240);
