@@ -357,6 +357,12 @@ sub run {
         return;
     }
 
+    assert_screen([qw(virttest-pxe-menu qa-net-selection prague-pxe-menu pxe-menu nue-ipxe-menu)], 600);
+    if (match_has_tag("nue-ipxe-menu")) {
+        send_key 'i';
+        assert_screen 'ipxe-shell';
+        enter_cmd_slow 'chain --replace http://baremetal-support.qe.nue2.suse.org/script.ipxe';
+    }
     if (is_agama) {
         assert_screen([qw(load-linux-kernel load-initrd)], 240);
         record_info("Installing", "Please check the expected product is being installed");
