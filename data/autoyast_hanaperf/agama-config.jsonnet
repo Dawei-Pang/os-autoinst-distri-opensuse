@@ -14,6 +14,9 @@
     patterns: {
       add: ['sles_sap_DB', 'sles_sap_APP']
     },
+    packages: [
+      'ucode-intel',
+    ],
   },
   product: {
     id: '{{AGAMA_PRODUCT_ID}}',
