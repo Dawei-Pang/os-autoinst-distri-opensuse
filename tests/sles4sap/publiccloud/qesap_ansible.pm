@@ -118,7 +118,7 @@ sub run {
             cmd_options => join(' ', '--profile', '--junit', '/tmp/results/'),
             logname => 'qesap_exec_ansible.log.txt',
             timeout => 3600,
-            verbose => 1);
+            verbose => 0);
 
         my $find_cmd = join(' ',
             'timeout', '10',
