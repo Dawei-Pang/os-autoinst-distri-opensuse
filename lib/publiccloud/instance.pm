@@ -441,6 +441,7 @@ sub wait_for_ssh {
                 # We don't support password authentication so it would just block the terminal
                 $sysout = $self->ssh_script_output(cmd => 'sudo systemctl is-system-running', ssh_opts => $ssh_opts,
                     timeout => $args{timeout} - $duration, proceed_on_failure => 1, username => $args{username});
+                record_info('systemctl is-system-running', $sysout);
                 # result check
                 if ($sysout =~ m/initializing|starting/) {    # still starting
                     $exit_code = undef;
