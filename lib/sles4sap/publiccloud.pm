@@ -387,6 +387,7 @@ sub wait_hana_node_up {
     $args{timeout} //= 900;
     my $start_time = time();
     my $out;
+    $instance->wait_for_ssh();
     while ((time() - $start_time) < $args{timeout}) {
         $out = $instance->ssh_script_output(
             cmd => 'sudo systemctl is-system-running',
