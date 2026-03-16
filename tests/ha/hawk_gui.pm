@@ -31,6 +31,9 @@ sub run {
         record_info('Version switch', 'New version = ' . get_var('VERSION'));
     }
 
+    select_console 'root-console';
+    turn_off_gnome_screensaver_for_running_gdm;
+
     # Wait for each cluster node to check for its hawk service
     barrier_wait("HAWK_GUI_INIT_$cluster_name");
 
