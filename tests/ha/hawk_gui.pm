@@ -15,6 +15,7 @@ use x11test;
 use x11utils;
 use version_utils qw(is_desktop_installed);
 use containers::common qw(install_podman_when_needed);
+use utils qw(systemctl);
 
 sub install_podman {
     install_podman_when_needed();
@@ -45,15 +46,16 @@ sub run {
     # TODO: Use another namespace using team group name
     # Docker image source in https://github.com/ricardobranco777/hawk_test
     # It will be eventually moved to https://github.com/ClusterLabs/hawk/e2e_test
-    my $image = "registry.opensuse.org/devel/openqa/ci/tooling/containers_15_4/hawk_test:latest";
+    my $image = "registry.opensuse.org/home/dawei_pang/branches/devel/openqa/ci/tooling/containers_15_4/hawk_test:latest";
 
-    assert_script_run("podman pull $image", 240);
+    assert_script_run("env DOCKER_CONTENT_TRUST=1 podman pull $image", 240);
 
     # Rest of the test needs to be performed on the x11 console, but with the
     # HA_CLUSTER setting that console is not yet activated; newer versions of gdm
     # expect the console on tty2 which can lead to false positives as there is no
     # session there yet, so instead this goes through the displaymanager console to
     # login into the x11 session.
+    systemctl('restart display-manager');
     select_console 'displaymanager';
     $self->handle_displaymanager_login();
     x11_start_program('xterm');
@@ -80,7 +82,7 @@ sub run {
     # and then cd to the user's home directory.
     become_root;
     assert_script_run("cd /home/$testapi::username");
-    my $test_cmd = "podman run --rm --name test --ipc=host -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=\$DISPLAY -v \$PWD/$path:/$path ";
+    my $test_cmd = "env DOCKER_CONTENT_TRUST=1 podman run --rm --name test --ipc=host -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=\$DISPLAY -v \$PWD/$path:/$path ";
     $test_cmd .= "$image -b $browser -H $node1 -S $node2 -s $testapi::password -r /$results --virtual-ip $virtual_ip";
     enter_cmd "$test_cmd 2>&1 | tee $logs; echo $pyscr-\$PIPESTATUS > $retcode";
     assert_screen "hawk-$browser", 60;
