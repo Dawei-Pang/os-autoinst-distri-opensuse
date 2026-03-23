@@ -402,7 +402,7 @@ sub wait_hana_node_up {
         $out = $instance->ssh_script_output(
             cmd => 'sudo systemctl is-system-running',
             # timeout must be enough for ssh handshake to not kill the test
-            timeout => 30,
+            timeout => 600,
             ssh_opts => '-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ControlPath=none -o ConnectTimeout=10',
             proceed_on_failure => 1);
         return if ($out =~ m/running/);
