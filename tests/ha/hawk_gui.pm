@@ -81,13 +81,13 @@ sub run {
     assert_script_run("cd /home/$testapi::username");
     my $test_cmd = "env DOCKER_CONTENT_TRUST=1 podman run --rm --name test --ipc=host -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=\$DISPLAY -v \$PWD/$path:/$path ";
     $test_cmd .= "$image -b $browser -H $node1 -S $node2 -s $testapi::password -r /$results --virtual-ip $virtual_ip";
-    enter_cmd "$test_cmd 2>&1 | tee $logs; echo $pyscr-\$PIPESTATUS > $retcode; chown -R $testapi::username $path; echo DONE; sleep 30; killall xterm";
+    enter_cmd "$test_cmd 2>&1 | tee $logs; echo $pyscr-\$PIPESTATUS > $retcode; chown -R $testapi::username $path; echo HAWK_TEST_DONE; sleep 30; killall xterm";
     assert_screen "hawk-$browser", 60;
 
     my $loop_count = 360;    # 30 minutes (360*5)
     while (1) {
         $loop_count--;
-        last if ($loop_count < 0);
+        last if ($loop_count < 0 or check_screen('hawk-test-done', 1));
         if (check_screen('generic-desktop', 0, no_wait => 1)) {
             # We may reach generic-desktop in two scenarios: (1) the python script
             # finishes, or (2) it has finished an individual test and closed the
@@ -104,8 +104,7 @@ sub run {
         script_run "podman container kill test";
     }
 
-    # Probably not necessary, but as podman command ran as root, change ownership of the
-    # test files to $testapi::username just to be on the safe side
+    save_screenshot;
 
     # Close Gui terminal, generic-desktop should be clean, no windows
     close_gui_terminal;
