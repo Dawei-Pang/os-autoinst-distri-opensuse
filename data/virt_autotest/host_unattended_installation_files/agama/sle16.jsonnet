@@ -49,7 +49,7 @@ local agama_product_mode = if transactional == '1' then 'immutable' else 'standa
       },
       packages: [
         % if ($get_var->('INSTALL_PRODUCT_PACKAGES')) {
-        '% $get_var->('INSTALL_PRODUCT_PACKAGES')',
+        '<%= get_var("INSTALL_PRODUCT_PACKAGES") %>',
         % }
         'virt-bridge-setup',
         // Workaround for bsc#1260073
