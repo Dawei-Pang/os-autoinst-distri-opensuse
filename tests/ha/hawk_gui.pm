@@ -14,6 +14,7 @@ use hacluster;
 use x11test;
 use x11utils;
 use version_utils qw(is_desktop_installed);
+use utils qw(exec_and_insert_password);
 use containers::common qw(install_podman_when_needed);
 
 sub install_podman {
@@ -45,6 +46,15 @@ sub run {
     my $image = get_var('HAWK_E2E_TEST_IMAGE', 'registry.opensuse.org/devel/openqa/ci/tooling/containers_16_0/hawk_test:latest');
     my $docker_content_trust = get_var('DOCKER_CONTENT_TRUST') ? 'env DOCKER_CONTENT_TRUST=1 ' : '';
     assert_script_run($docker_content_trust . 'podman pull ' . $image, 240);
+    my $node1 = choose_node(1);
+    my $node2 = choose_node(2);
+    # Setup ssh access for root account
+    add_to_known_hosts($node1);
+    add_to_known_hosts($node2);
+    exec_and_insert_password("ssh-copy-id -f root\@$node1");
+    exec_and_insert_password("ssh-copy-id -f root\@$node2");
+    # Record and query hawk2 and hawk-apiserver version, proceed on failure when hawk-apiserver not installed on SLES12
+    record_info('Query hawk2 and hawk-apiserver version', script_output('ssh root@' . $node1 . ' rpm -qi hawk2 hawk-apiserver', proceed_on_failure => 1));
 
     # Rest of the test needs to be performed on the x11 console, but with the
     # HA_CLUSTER setting that console is not yet activated; newer versions of gdm
@@ -64,8 +74,6 @@ sub run {
 
     # Run test
     my $browser = 'firefox';
-    my $node1 = choose_node(1);
-    my $node2 = choose_node(2);
     my $results = "$path/$pyscr.results";
     my $retcode = "$path/$pyscr.ret";
     my $logs = "$path/$pyscr.log";
