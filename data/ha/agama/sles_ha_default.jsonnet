@@ -9,6 +9,24 @@
       }
     ]
   },
+  "software": {
+    "extraRepositories": [
+       {
+         "alias": "8316HAWKAPI",
+         "url": "http://dist.suse.de/ibs/SUSE:/SLFO:/1.2:/PullRequest:/8316:/SLES/product/repo/SLES-HA-16.0-x86_64/",
+         "name": "8316HAWKAPI",
+         "allowUnsigned": true,
+         "enabled": true
+       },
+       {
+         "alias": "8318HAWK2",
+         "url": "http://dist.suse.de/ibs/SUSE:/SLFO:/1.2:/PullRequest:/8318:/SLES/product/repo/SLES-HA-16.0-x86_64/",
+         "name": "8318HAWK2",
+         "allowUnsigned": true,
+         "enabled": true
+       },
+    ],
+  },
   bootloader: {
     stopOnBootMenu: true
   },
